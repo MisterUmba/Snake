@@ -1,5 +1,3 @@
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -18,14 +16,16 @@ public class View extends GridPane {
     GraphicsContext pen = canvas.getGraphicsContext2D();
     Button restart = new Button("Restart");
     Button pause = new Button("Pause");
-    Image img = new Image(getClass().getResourceAsStream("Snake.png"));
-    ImageView post = new ImageView(img);
+    ImageView post;
     Label title = new Label("Snake");
     Button quit;
     GridPane titleBar = new GridPane();
 
 
     View(Model model){
+        post = new ImageView(
+                new Image(getClass().
+                        getResourceAsStream("snake.png")));
         ImageView v = new ImageView(new Image(getClass().getResourceAsStream("quitButton.png")));
 
         quit = new Button("",v);
@@ -79,6 +79,9 @@ public class View extends GridPane {
 
         pen.setFill(Color.GOLD);
         pen.fillRect(model.coin.x*10, model.coin.y*10,10,10);
+
+        pen.setFill(Color.RED);
+        pen.fillText("score: "+model.score, canvas.getWidth()/2 - 20, canvas.getHeight()/6);
 
     }
 }

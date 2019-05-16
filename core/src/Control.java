@@ -4,14 +4,18 @@ import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
+
+import java.awt.*;
 
 
 public class Control extends Application {
@@ -32,11 +36,11 @@ public class Control extends Application {
         key = KeyCode.T;
 
 
-        view.restart.setOnAction(new EventHandler<ActionEvent>() {
-            public void handle(ActionEvent actionEvent) {
+        view.restart.setOnAction(ev->{
                 model.snake.clear();
                 model.snake.add(model.head);
                 view.canvas.requestFocus();
+                model.score = 0;
 
                 if(view.pause.isDisable()){
                     view.pause.setDisable(false);
@@ -45,7 +49,7 @@ public class Control extends Application {
                     time.play();
                 }
             }
-        });
+        );
 
         view.canvas.setOnKeyPressed(keyEvent -> {
             if(key == KeyCode.A && keyEvent.getCode()==KeyCode.D)return;
@@ -71,6 +75,11 @@ public class Control extends Application {
 
         view.quit.setOnAction(e -> {
             prime.close();
+        });
+
+        view.titleBar.setOnMouseDragged(ev->{
+            prime.setX(ev.getScreenX());
+            prime.setY(ev.getScreenY());
         });
 
         time = new Timeline(new KeyFrame(Duration.millis(speed), new EventHandler<ActionEvent>() {

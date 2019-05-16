@@ -8,6 +8,7 @@ public class Model{
     Node head;
     Node coin;
     Random rand;
+    long score;
 
     final int CANVASX = 80;
     final int CANVASY = 60;
@@ -57,6 +58,7 @@ public class Model{
                 break;
         }
 
+        score += 100;
     }
 
     // impact with walls
